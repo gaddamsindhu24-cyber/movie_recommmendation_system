@@ -1,0 +1,33 @@
+# Private settings
+.env
+
+# Python
+venv/
+__pycache__/
+*.py[cod]
+
+# Personal database
+data/user_data.db
+data/user_data.db-*
+
+# MovieLens dataset
+data/ml-1m/
+
+# Backups
+backups/
+app_backup.py
+app_before_cnn_only.py
+
+# Temporary files
+.streamlit/secrets.toml
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# Local backup
+app_before_restore.py
+
+# Generated recommendation output
+data/recommendations.csv
+data/recommendations_with_posters.csv
+data/ml-1m.zip

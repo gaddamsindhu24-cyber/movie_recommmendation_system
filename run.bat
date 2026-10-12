@@ -1,0 +1,3 @@
+@echo off
+echo Starting AI Movie Recommendation System in Ubuntu WSL virtual environment...
+wsl -d Ubuntu -e bash -c "cd ~/Projects/Movie_Recommendation_system && source venv/bin/activate && streamlit run app.py"
