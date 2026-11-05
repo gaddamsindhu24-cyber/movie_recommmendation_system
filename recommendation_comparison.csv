@@ -1,0 +1,31 @@
+Model,movie_id,title,genres,Score
+KNN,1196,Star Wars: Episode V - The Empire Strikes Back (1980),Action|Adventure|Drama|Sci-Fi|War,51.733593458516246
+KNN,364,"Lion King, The (1994)",Animation|Children's|Musical,51.03767495809755
+KNN,1198,Raiders of the Lost Ark (1981),Action|Adventure,49.39736006149098
+KNN,1265,Groundhog Day (1993),Comedy|Romance,48.73862280265438
+KNN,1210,Star Wars: Episode VI - Return of the Jedi (1983),Action|Adventure|Romance|Sci-Fi|War,48.028959423722355
+KNN,2716,Ghostbusters (1984),Comedy|Horror,47.743084488935665
+KNN,2081,"Little Mermaid, The (1989)",Animation|Children's|Comedy|Musical|Romance,47.63292575853505
+KNN,318,"Shawshank Redemption, The (1994)",Drama,47.17517847206944
+KNN,593,"Silence of the Lambs, The (1991)",Drama|Thriller,47.120510010837606
+KNN,2571,"Matrix, The (1999)",Action|Sci-Fi|Thriller,46.82788466519996
+SVD,953,It's a Wonderful Life (1946),Drama,4.7948105086128
+SVD,858,"Godfather, The (1972)",Action|Crime|Drama,4.771287490940141
+SVD,912,Casablanca (1942),Drama|Romance|War,4.74947977128714
+SVD,1250,"Bridge on the River Kwai, The (1957)",Drama|War,4.733443011055168
+SVD,2905,Sanjuro (1962),Action|Adventure,4.727775623981979
+SVD,318,"Shawshank Redemption, The (1994)",Drama,4.722133366841379
+SVD,1234,"Sting, The (1973)",Comedy|Crime,4.690605358146452
+SVD,1221,"Godfather: Part II, The (1974)",Action|Crime|Drama,4.6718024295623675
+SVD,1272,Patton (1970),Drama|War,4.661467674039018
+SVD,913,"Maltese Falcon, The (1941)",Film-Noir|Mystery,4.649877234749143
+CNN,2197,Firelight (1997),Drama,4.723537921905518
+CNN,2810,Perfect Blue (1997),Animation|Mystery,4.596767902374268
+CNN,3147,"Green Mile, The (1999)",Drama|Thriller,4.583735942840576
+CNN,3314,"Big Trees, The (1952)",Action|Drama,4.5706706047058105
+CNN,3679,"Decline of Western Civilization, The (1981)",Documentary,4.514842987060547
+CNN,1797,Everest (1998),Documentary,4.505710601806641
+CNN,2156,"Best Man, The (Il Testimone dello sposo) (1997)",Comedy|Drama,4.502696990966797
+CNN,2571,"Matrix, The (1999)",Action|Sci-Fi|Thriller,4.496513366699219
+CNN,1035,"Sound of Music, The (1965)",Musical,4.489955902099609
+CNN,3753,"Patriot, The (2000)",Action|Drama|War,4.477427005767822
