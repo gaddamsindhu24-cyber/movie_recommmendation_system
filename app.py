@@ -4,6 +4,10 @@ import pandas as pd
 from src.recommend import get_recommendations
 from src.svd_recommender import get_svd_recommendations
 from src.cnn_recommender import get_cnn_recommendations
+from mood_recommendations import (
+    get_mood_recommendations,
+    add_recommendation_explanations
+)
 
 from src.user_storage import (
     add_to_watchlist,
@@ -173,6 +177,23 @@ selected_category = st.selectbox(
     category_list
 )
 
+# MOOD SELECTION
+
+selected_mood = st.selectbox(
+    "😊 Select Your Current Mood",
+    [
+        "Happy 😊",
+        "Sad 😢",
+        "Romantic ❤️",
+        "Excited 🤩",
+        "Bored 😴"
+    ]
+)
+
+use_mood = st.checkbox(
+    "Enable Mood-Based Recommendations"
+)
+
 
 # ============================================================
 # RECOMMENDATION BUTTON
@@ -197,11 +218,19 @@ if st.button(
 
         # SVD
         elif method == "SVD":
-            recommendations = get_svd_recommendations(
-                user_id=user_id,
-                n=10,
-                genre=selected_category
-            )
+            if use_mood:
+                recommendations = get_mood_recommendations(
+                    user_id=user_id,
+                    mood=selected_mood,
+                    n=10,
+                    genre=selected_category
+                )
+            else:
+                recommendations = get_svd_recommendations(
+                    user_id=user_id,
+                    n=10,
+                    genre=selected_category
+                )
 
         # CNN
         else:
@@ -210,6 +239,20 @@ if st.button(
                 n=10,
                 genre=selected_category
             )
+
+    # Add explanations
+    if recommendations is not None and not recommendations.empty:
+        explanation_mood = (
+            selected_mood
+            if method == "SVD" and use_mood
+            else None
+        )
+
+        recommendations = add_recommendation_explanations(
+            recommendations,
+            user_id,
+            mood=explanation_mood
+        )
 
     # Check whether recommendations exist
     if recommendations.empty:
@@ -230,6 +273,10 @@ if st.button(
         st.session_state["rec_method"] = method
         st.session_state["rec_category"] = selected_category
 
+        st.session_state["rec_mood"] = (
+    selected_mood if method == "SVD" and use_mood else None
+)
+
 
 # ============================================================
 # DISPLAY RECOMMENDATIONS (PERSISTENT ACROSS RERUNS)
@@ -241,6 +288,7 @@ if recs is not None and not recs.empty:
     rec_user = st.session_state.get("rec_user_id", user_id)
     rec_cat = st.session_state.get("rec_category", selected_category)
     rec_method = st.session_state.get("rec_method", method)
+    rec_mood = st.session_state.get("rec_mood")
 
     # Success message
     if rec_cat == "All Genres":
@@ -266,6 +314,10 @@ if recs is not None and not recs.empty:
         )
 
     # Category information
+
+    if rec_mood:
+        st.info(f"😊 Selected Mood: {rec_mood}")
+        st.success("Mood-based movie recommendations are ready!")
     if rec_cat == "All Genres":
         st.info("Category: All Genres")
     else:
@@ -319,6 +371,11 @@ if recs is not None and not recs.empty:
                     st.caption(
                         f"📊 Score: {row['recommendation_score']:.2f}"
                     )
+
+                # Why this movie was recommended
+                if "Why This Movie?" in recs.columns:
+                    with st.expander("💡 Why This Movie?"):
+                        st.write(row["Why This Movie?"])
 
                 # Watchlist button
                 if is_in_watchlist(rec_user, mid):
@@ -460,6 +517,3 @@ st.caption(
     "Movie poster information provided through the TMDB API."
 )
 
-st.caption(
-    "This product uses the TMDB API but is not endorsed or certified by TMDB."
-)

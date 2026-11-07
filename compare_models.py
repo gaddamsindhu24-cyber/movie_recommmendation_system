@@ -296,6 +296,10 @@ cnn_predictions = np.clip(cnn_predictions, 1, 5)
 # 6. Calculate RMSE and MAE
 # --------------------------------------------------
 
+# --------------------------------------------------
+# 6. Calculate MSE, RMSE and MAE
+# --------------------------------------------------
+
 actual = test_df["rating"].to_numpy()
 
 predictions = {
@@ -307,11 +311,13 @@ predictions = {
 results = []
 
 for model_name, predicted in predictions.items():
-    rmse = np.sqrt(mean_squared_error(actual, predicted))
+    mse = mean_squared_error(actual, predicted)
+    rmse = np.sqrt(mse)
     mae = mean_absolute_error(actual, predicted)
 
     results.append({
         "Model": model_name,
+        "MSE": mse,
         "RMSE": rmse,
         "MAE": mae
     })
@@ -352,6 +358,19 @@ plt.tight_layout()
 plt.savefig(BASE_DIR / "mae_comparison.png", dpi=300)
 plt.close()
 
+
+# --------------------------------------------------
+# 9. Save MSE comparison graph
+# --------------------------------------------------
+
+plt.figure(figsize=(8, 5))
+plt.bar(results_df["Model"], results_df["MSE"])
+plt.title("MSE Comparison of KNN, SVD and CNN")
+plt.xlabel("Models")
+plt.ylabel("MSE (Lower is Better)")
+plt.tight_layout()
+plt.savefig(BASE_DIR / "mse_comparison.png", dpi=300)
+plt.close()
 # --------------------------------------------------
 # 9. Compare top 10 recommendations for one user
 # --------------------------------------------------
@@ -469,6 +488,65 @@ recommendation_results.to_csv(
     index=False
 )
 
+# --------------------------------------------------
+# Evaluate Top 10 recommendations for demo user
+# --------------------------------------------------
+
+# Relevant movies: movies rated 4 or 5 in the test set
+relevant_movies = set(
+    test_df.loc[
+        (test_df["user_id"] == demo_user) &
+        (test_df["rating"] >= 4),
+        "movie_id"
+    ]
+)
+
+top_recommendations = {
+    "KNN": set(knn_top["movie_id"].head(10)),
+    "SVD": set(svd_top["movie_id"].head(10)),
+    "CNN": set(cnn_top["movie_id"].head(10))
+}
+
+ranking_results = []
+
+for model_name, recommended_movies in top_recommendations.items():
+
+    hits = len(recommended_movies.intersection(relevant_movies))
+
+    precision = hits / 10
+
+    if len(relevant_movies) > 0:
+        recall = hits / len(relevant_movies)
+    else:
+        recall = np.nan
+
+    if not np.isnan(recall) and (precision + recall) > 0:
+        f1 = 2 * precision * recall / (precision + recall)
+    else:
+        f1 = np.nan
+
+    ranking_results.append({
+        "Model": model_name,
+        "Precision@10": precision,
+        "Recall@10": recall,
+        "F1@10": f1
+    })
+
+ranking_df = pd.DataFrame(ranking_results)
+
+print("\n========== TOP 10 RANKING METRICS ==========")
+print("Demo User ID:", demo_user)
+print("Relevant test movies:", len(relevant_movies))
+print(ranking_df.to_string(index=False))
+
+# Add ranking metrics to the model results CSV
+results_df = results_df.merge(ranking_df, on="Model")
+
+results_df.to_csv(
+    BASE_DIR / "model_results.csv",
+    index=False
+)
+
 print("\nTop 10 recommendations saved for User ID:", demo_user)
 print(recommendation_results.to_string(index=False))
 
@@ -478,3 +556,7 @@ print("model_comparison.png")
 print("mae_comparison.png")
 print("recommendation_comparison.csv")
 print("\nComparison completed!")
+# --------------------------------------------------
+# 9. Save MSE comparison graph
+# --------------------------------------------------
+
