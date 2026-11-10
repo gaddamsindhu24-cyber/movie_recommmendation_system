@@ -1,5 +1,6 @@
 # Private settings
 .env
+.streamlit/secrets.toml
 
 # Python
 venv/
@@ -12,24 +13,18 @@ data/user_data.db-*
 
 # MovieLens dataset
 data/ml-1m/
+data/ml-1m.zip
 
 # Backups
 backups/
 app_backup.py
 app_before_cnn_only.py
-
-# Temporary files
-.streamlit/secrets.toml
-# Python cache files
-__pycache__/
-*.py[cod]
-
-# Local backup
 app_before_restore.py
 
 # Generated recommendation output
 data/recommendations.csv
 data/recommendations_with_posters.csv
-data/ml-1m.zip
-data/ml-1m.zip
-data/ml-1m.zip
+
+# OS files
+.DS_Store
+Thumbs.db
