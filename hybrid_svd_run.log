@@ -1,0 +1,38 @@
+
+Training validation SVD...
+
+Testing hybrid weights using validation NDCG@10...
+Evaluated 100 users
+Evaluated 200 users
+Evaluated 300 users
+Evaluated 400 users
+Evaluated 500 users
+Users evaluated: 500
+Alpha 1.0 | Precision@10: 0.0312 | Recall@10: 0.0358 | NDCG@10: 0.0417
+Alpha 0.9 | Precision@10: 0.0308 | Recall@10: 0.0370 | NDCG@10: 0.0423
+Alpha 0.8 | Precision@10: 0.0330 | Recall@10: 0.0403 | NDCG@10: 0.0449
+Alpha 0.7 | Precision@10: 0.0344 | Recall@10: 0.0409 | NDCG@10: 0.0455
+Alpha 0.6 | Precision@10: 0.0328 | Recall@10: 0.0356 | NDCG@10: 0.0432
+Alpha 0.5 | Precision@10: 0.0304 | Recall@10: 0.0342 | NDCG@10: 0.0401
+Alpha 0.4 | Precision@10: 0.0286 | Recall@10: 0.0351 | NDCG@10: 0.0385
+
+Best alpha: 0.7
+
+Training final SVD...
+
+Evaluating final test results...
+Evaluated 100 users
+Evaluated 200 users
+Evaluated 300 users
+Evaluated 400 users
+Evaluated 500 users
+Users evaluated: 500
+
+FINAL TEST RESULTS
+       Model  Precision@10  Recall@10  NDCG@10
+Original SVD        0.0756   0.043110 0.080392
+  Hybrid SVD        0.0704   0.041136 0.076992
+
+Selected alpha: 0.7
+
+Saved results and comparison graphs.
