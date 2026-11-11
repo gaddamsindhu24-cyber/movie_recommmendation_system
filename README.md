@@ -200,3 +200,24 @@ The application will open in your web browser.
 1. GroupLens Research, MovieLens 1M Dataset. https://grouplens.org/datasets/movielens/1m/
 2. Surprise: A Python Scikit for Building and Analyzing Recommender Systems. https://surprise.readthedocs.io/
 3. Y. Koren, R. Bell and C. Volinsky, "Matrix Factorization Techniques for Recommender Systems," Computer, 2009.
+ github link:https://github.com/gaddamsindhu24-cyber/movie_recommmendation_system.git
+
+
+ GroupLens Research, MovieLens 1M Dataset: https://grouplens.org/datasets/movielens/1m/
+
+The Movie Database (TMDB): https://www.themoviedb.org/
+
+TMDB API Documentation: https://developer.themoviedb.org/docs
+
+Surprise Python Library: https://surpriselib.com/
+
+Streamlit Documentation: https://docs.streamlit.io/
+
+Pandas Documentation: https://pandas.pydata.org/docs/
+
+
+ Application URL
+
+Once the Streamlit server starts successfully, open your browser and visit:
+
+http://localhost:8501
