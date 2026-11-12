@@ -3,7 +3,6 @@ import pandas as pd
 
 from src.recommend import get_recommendations
 from src.svd_recommender import get_svd_recommendations
-from src.cnn_recommender import get_cnn_recommendations
 from src.hybrid_svd_recommender import get_hybrid_recommendations
 from mood_recommendations import (
     get_mood_recommendations,
@@ -94,7 +93,7 @@ st.sidebar.title("🎬 AI Movie Recommender")
 st.sidebar.info(
     """
     Personalized movie recommendations
-    using KNN, SVD and CNN.
+    using KNN, SVD and Hybrid SVD.
     """
 )
 
@@ -154,8 +153,7 @@ if user_type == "Existing MovieLens User":
         [
             "KNN / Collaborative Filtering",
             "SVD",
-            "Hybrid SVD",
-            "CNN"
+            "Hybrid SVD"
         ]
     )
 
@@ -314,12 +312,6 @@ if st.button("🎯 Get My Recommendations", width="stretch"):
                     genre=selected_category
                 )
 
-            else:
-                recommendations = get_cnn_recommendations(
-                    user_id=user_id,
-                    n=10,
-                    genre=selected_category
-                )
 
             if recommendations is not None and not recommendations.empty:
                 explanation_mood = (
@@ -402,12 +394,6 @@ if recs is not None and not recs.empty:
             "Recommendation method: Hybrid SVD combining SVD predictions "
             "with genre preference scores."
         )
-    else:
-        st.info(
-            "Recommendation method: CNN "
-            "(Convolutional Neural Network) for rating prediction."
-        )
-
     # Category information
 
     if rec_mood:
@@ -460,7 +446,7 @@ if recs is not None and not recs.empty:
                 )
 
                 # Predicted Rating / Score
-                if rec_method in ["SVD", "CNN"] and "PredictedRating" in recs.columns:
+                if rec_method == "SVD" and "PredictedRating" in recs.columns:
                     st.caption(
                         f"⭐ Predicted Rating: {row['PredictedRating']:.2f} / 5"
                     )
@@ -609,7 +595,7 @@ st.markdown(
     The user enters their MovieLens User ID.
 
     **2. Recommendation Model**  
-    The user selects KNN, SVD, or CNN.
+    The user selects KNN, SVD, or Hybrid SVD.
 
     **3. Movie Category**  
     The user can select a preferred movie category such as
@@ -671,7 +657,7 @@ st.divider()
 
 st.caption(
     "Recommendation Methods: KNN / Item-Based Collaborative Filtering "
-    "using Cosine Similarity, SVD, and CNN."
+    "using Cosine Similarity, SVD, and Hybrid SVD."
 )
 
 st.caption(
